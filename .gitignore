@@ -87,3 +87,9 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+.idea/gotta-catch-emall.iml
+.idea/misc.xml
+.idea/modules.xml
+.idea/workspace.xml
+
