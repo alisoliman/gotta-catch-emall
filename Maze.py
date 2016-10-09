@@ -1,4 +1,5 @@
-# import stddraw
+from stddraw import stddraw
+from stddraw import color
 import random
 import Cell
 import turtle
@@ -13,9 +14,11 @@ class Maze():
         startX = random.randint(1, self.width)
         startY = random.randint(1, self.height)
         self.genMaze(startX,startY)
+        self.drawMaze()
 
-        # stddraw.setXscale(0,width+2)
-        # stddraw.setYscale(0,height+2)
+        stddraw.setXscale(0,width+2)
+        stddraw.setYscale(0,height+2)
+        stddraw._showAndWaitForever()
 
 
     def defineInitialState(self):
@@ -61,4 +64,22 @@ class Maze():
 
 
     def drawMaze(self):
-        turtle.Turtle.forward(1)
+        stddraw.setPenColor(color.RED)
+        stddraw.filledCircle(self.width/2.0+0.5, self.width/2.0+0.5,0.375)
+        stddraw.filledCircle(1.5,1.5,0.375)
+
+        stddraw.setPenColor(color.BLACK)
+        for x in range(1,self.width):
+            for y in range(1,self.height):
+                print(1)
+                if self.cells[x][y].south: stddraw.line(x,y,x+1,y)
+                if self.cells[x][y].north: stddraw.line(x, y+1, x + 1, y+1)
+                if self.cells[x][y].west: stddraw.line(x, y, x, y+1)
+                if self.cells[x][y].east: stddraw.line(x+1, y, x + 1, y+1)
+
+        stddraw.show()
+        # window = turtle.Screen()
+        # window.bgcolor("white")
+        # print(window.screensize())
+        # drawingTurtle = turtle.Turtle()
+        # window.exitonclick()
