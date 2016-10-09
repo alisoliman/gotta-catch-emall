@@ -1,6 +1,3 @@
-import pygame
-
-from stddraw import stddraw
 from stddraw import color
 import random
 import Cell

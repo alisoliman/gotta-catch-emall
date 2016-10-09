@@ -1,2 +1,2 @@
-class SearchEngine:
+class SearchEngine():
     
