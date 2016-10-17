@@ -9,11 +9,12 @@ class Maze():
     def __init__(self, width, height):
         self.height = height
         self.width = width
-        self.cells = [[Cell.Cell() for x in range(height + 2)] for y in range(width + 2)]
-        self.visited = [[False for x in range(height + 2)] for y in range(width + 2)]
+        self.cells = [[Cell.Cell() for _ in range(height + 2)] for _ in range(width + 2)]
+        self.visited = [[False for _ in range(height + 2)] for _ in range(width + 2)]
+        self.pokes_locations = []
         self.define_initial_state()
-        self.startLocation = self.gen_random_location();
-        self.endLocation = self.gen_random_location();
+        self.startLocation = self.gen_random_location()
+        self.endLocation = self.gen_random_location()
         self.gen_maze()
 
     def define_initial_state(self):
@@ -31,8 +32,8 @@ class Maze():
         while (not self.visited[startX][startY + 1]) or (not self.visited[startX + 1][startY]) or (
                 not self.visited[startX][startY - 1]) or (not self.visited[startX - 1][startY]):
             while (True):
-                chosen_direction = random.randint(1,
-                                                  4)  # Choose a direction to move to 1 = North, 2 = East , 3 = South , 4 = West
+                # Choose a direction to move to 1 = North, 2 = East , 3 = South , 4 = West
+                chosen_direction = random.randint(1, 4)
                 if chosen_direction == 1 and not self.visited[startX][startY + 1]:
                     self.cells[startX][startY].north = False
                     self.cells[startX][startY + 1].south = False
@@ -58,11 +59,20 @@ class Maze():
         if (self.startLocation.x == self.endLocation.x and self.startLocation.y == self.endLocation.y):
             self.endLocation = self.gen_random_location()
         self.generate_maze(self.startLocation.x, self.startLocation.y)
+        self.gen_pokes(random.randint(1, self.width/2))
         self.draw_maze()
 
     def gen_random_location(self):
         loc = Location.Location(random.randint(1, self.width), random.randint(1, self.height))
         return loc
+
+    def gen_pokes(self, number_of_pokes):
+        print(number_of_pokes)
+        for i in range(0, number_of_pokes):
+            loc = self.gen_random_location()
+            self.cells[loc.x][loc.y].hasPokemon = True
+            self.pokes_locations.append(loc)
+
 
     def draw_maze(self):
         # Initialise Window with its attributes
@@ -100,7 +110,3 @@ class Maze():
                     drawingTurtle.penup()
                 drawingTurtle.setpos(drawingTurtle.xcor(), drawingTurtle.ycor() - 1)
         window.exitonclick()
-
-    def draw_cell(self, cell):
-        if cell.north == False:
-            return
