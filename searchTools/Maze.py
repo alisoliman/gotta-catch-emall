@@ -12,14 +12,8 @@ class Maze():
         self.cells = [[Cell.Cell() for x in range(height + 2)] for y in range(width + 2)]
         self.visited = [[False for x in range(height + 2)] for y in range(width + 2)]
         self.defineInitialState()
-        startX = random.randint(1, self.width)
-        startY = random.randint(1, self.height)
-        self.genMaze(startX, startY)
-        self.drawMaze()
-
-        # stddraw.setXscale(0,width+2)
-        # stddraw.setYscale(0,height+2)
-        # stddraw._showAndWaitForever()
+        self.startLocation;
+        self.endLocation;
 
     def defineInitialState(self):
 
@@ -31,7 +25,7 @@ class Maze():
             self.visited[0][y] = True
             self.visited[self.width + 1][y] = True
 
-    def genMaze(self, startX, startY):
+    def generateMaze(self, startX, startY):
         self.visited[startX][startY] = True
         while (not self.visited[startX][startY + 1]) or (not self.visited[startX + 1][startY]) or (
         not self.visited[startX][startY - 1]) or (not self.visited[startX - 1][startY]):
@@ -40,23 +34,36 @@ class Maze():
                 if chosen_direction == 1 and not self.visited[startX][startY + 1]:
                     self.cells[startX][startY].north = False
                     self.cells[startX][startY + 1].south = False
-                    self.genMaze(startX, startY + 1)
+                    self.generateMaze(startX, startY + 1)
                     break
                 if chosen_direction == 2 and not self.visited[startX + 1][startY]:
                     self.cells[startX][startY].east = False
                     self.cells[startX + 1][startY].west = False
-                    self.genMaze(startX + 1, startY)
+                    self.generateMaze(startX + 1, startY)
                     break
                 if chosen_direction == 3 and not self.visited[startX][startY - 1]:
                     self.cells[startX][startY].south = False
                     self.cells[startX][startY - 1].north = False
-                    self.genMaze(startX, startY - 1)
+                    self.generateMaze(startX, startY - 1)
                     break
                 if chosen_direction == 4 and not self.visited[startX - 1][startY]:
                     self.cells[startX][startY].west = False
                     self.cells[startX - 1][startY].east = False
-                    self.genMaze(startX - 1, startY)
+                    self.generateMaze(startX - 1, startY)
                     break
+
+    def genMaze(self):
+        self.startLocation = self.genRandomLocation()
+        self.endLocation = self.genRandomLocation()
+        if (self.startLocation.x == self.endLocation.x and self.startLocation.y == self.endLocation.y):
+            self.endLocation = self.genRandomLocation()
+        self.generateMaze(self.startLocation.x, self.startLocation.y)
+        self.drawMaze()
+
+    def genRandomLocation(self):
+        loc = Location.Location(random.randint(1, self.width), random.randint(1, self.height))
+        return loc
+
 
     def drawMaze(self):
         # Initialise Window with its attributes

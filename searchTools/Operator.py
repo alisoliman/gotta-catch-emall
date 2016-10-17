@@ -1,2 +1,2 @@
-# class Operator(Enum):
+from enum import Enum
 
