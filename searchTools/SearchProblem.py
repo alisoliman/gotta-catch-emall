@@ -5,5 +5,6 @@ class SearchProblem():
         self.goalTest = goalTest
         self.pathCostFunction = pathCostFunction
 
+
     def main(self):
         pass

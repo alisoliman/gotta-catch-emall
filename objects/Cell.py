@@ -5,5 +5,5 @@ class Cell():
         self.south = True
         self.east = True
         self.west = True
-        hasPokemon = False
+        self.hasPokemon = False
 
