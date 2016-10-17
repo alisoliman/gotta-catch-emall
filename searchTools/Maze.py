@@ -1,7 +1,8 @@
-from stddraw import color
 import random
-import Cell
 import turtle
+
+from objects import Cell
+from searchTools import Location
 
 
 class Maze():
@@ -63,25 +64,15 @@ class Maze():
         window = turtle.Screen()
         turtle.setworldcoordinates(0, 0, self.width+0.5, self.height+0.5)
         window.bgcolor("white")
-        print(window.screensize())
 
         # Initialise my drawing Turtle
         drawingTurtle = turtle.Turtle()
         drawingTurtle.speed(0)
-        # cell = self.cells[1][1]
-        # x = 1
-        # y = 1
-        # print(cell.south)
-        # print(cell.north)
-        # print(cell.east)
-        # print(cell.west)
         for x in range(1,self.width+1):
             for y in range(1,self.height+1):
                 drawingTurtle.penup()
                 drawingTurtle.setpos(x-1, y-1)
                 cell = self.cells[x][y]
-                if (x == 1):
-                    print(cell.east)
                 if cell.south :
                     drawingTurtle.pendown()
                 else:
@@ -108,9 +99,6 @@ class Maze():
 
 
 
-        # for x in range(1,self.width):
-        #     for y in range(1,self.height):
-        #         if self.cells[x][y].south: drawingTurtle.setx(drawingTurtle.xcor()+1)
         window.exitonclick()
 
     def drawCell(self, cell):
