@@ -1,7 +1,3 @@
-import pygame
-
-from stddraw import stddraw
-from stddraw import color
 import random
 import Cell
 import turtle
@@ -15,13 +11,12 @@ class Maze():
         self.visited = [[False for x in range(height + 2)] for y in range(width + 2)]
         self.defineInitialState()
         startX = random.randint(1, self.width)
+        print(startX)
         startY = random.randint(1, self.height)
+        print(startY)
         self.genMaze(startX, startY)
         self.drawMaze()
 
-        # stddraw.setXscale(0,width+2)
-        # stddraw.setYscale(0,height+2)
-        # stddraw._showAndWaitForever()
 
     def defineInitialState(self):
 
@@ -71,20 +66,11 @@ class Maze():
         # Initialise my drawing Turtle
         drawingTurtle = turtle.Turtle()
         drawingTurtle.speed(0)
-        # cell = self.cells[1][1]
-        # x = 1
-        # y = 1
-        # print(cell.south)
-        # print(cell.north)
-        # print(cell.east)
-        # print(cell.west)
         for x in range(1,self.width+1):
             for y in range(1,self.height+1):
                 drawingTurtle.penup()
                 drawingTurtle.setpos(x-1, y-1)
                 cell = self.cells[x][y]
-                if (x == 1):
-                    print(cell.east)
                 if cell.south :
                     drawingTurtle.pendown()
                 else:
