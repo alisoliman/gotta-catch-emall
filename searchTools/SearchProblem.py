@@ -8,3 +8,4 @@ class SearchProblem():
 
     def main(self):
         pass
+
