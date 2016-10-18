@@ -12,6 +12,7 @@ class Maze():
         self.cells = [[Cell.Cell() for _ in range(height + 2)] for _ in range(width + 2)]
         self.visited = [[False for _ in range(height + 2)] for _ in range(width + 2)]
         self.pokes_locations = []
+        self.total_pokemons = 0
         self.define_initial_state()
         self.startLocation = self.gen_random_location()
         self.endLocation = self.gen_random_location()
@@ -60,6 +61,7 @@ class Maze():
             self.endLocation = self.gen_random_location()
         self.generate_maze(self.startLocation.x, self.startLocation.y)
         self.gen_pokes(random.randint(1, self.width/2))
+        self.total_pokemons = len(self.pokes_locations)
         self.draw_pokes()
         self.draw_maze()
 
