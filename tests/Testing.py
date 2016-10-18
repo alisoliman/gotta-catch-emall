@@ -1,4 +1,4 @@
-from objects import Maze
+from Objects import Maze
 
-maze1 = Maze.Maze(20, 20)
+maze1 = Maze.Maze(40, 40)
 print (maze1.visited)
