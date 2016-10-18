@@ -2,6 +2,7 @@ from objects.Orientation import Orientation
 from objects import State
 from objects.Maze import Maze
 from objects import Operator
+from additional_packages.utils import is_in
 
 class SearchProblem():
     def __init__(self, operators, initState, goalTest, pathCostFunction):
