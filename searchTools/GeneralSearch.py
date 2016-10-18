@@ -13,12 +13,12 @@ class GeneralSearch():
             return node
         queue = FIFOQueue()
         queue.append(node)
-        explored = set()
+        visited_nodes = set()
         while queue:
             node = queue.pop()
-            explored.add(node.state)
+            visited_nodes.add(node.state)
             for child in node.expand(problem):
-                if child.state not in explored and child not in queue:
+                if child.state not in visited_nodes and child not in queue:
                     if problem.goal_test(child.state):
                         return child
                     queue.append(child)
