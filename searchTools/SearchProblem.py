@@ -22,4 +22,5 @@ class SearchProblem():
     def path_cost(self, c, state1, action, state2):
         raise NotImplementedError
 
-
+    def main(self):
+        pass
