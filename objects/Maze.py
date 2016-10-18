@@ -2,7 +2,7 @@ import random
 import turtle
 
 from Objects import Cell
-from objects import Location
+from Objects import Location
 
 
 class Maze():
@@ -60,18 +60,19 @@ class Maze():
             self.endLocation = self.gen_random_location()
         self.generate_maze(self.startLocation.x, self.startLocation.y)
         self.gen_pokes(random.randint(1, self.width/2))
+        self.draw_pokes()
         self.draw_maze()
 
     def gen_random_location(self):
-        loc = Location.Location(random.randint(1, self.width), random.randint(1, self.height))
+        loc = Location.Location(random.randint(1, self.width-1), random.randint(1, self.height-1))
         return loc
 
     def gen_pokes(self, number_of_pokes):
-        print(number_of_pokes)
         for i in range(0, number_of_pokes):
             loc = self.gen_random_location()
             self.cells[loc.x][loc.y].hasPokemon = True
             self.pokes_locations.append(loc)
+
 
 
     def draw_maze(self):
@@ -109,4 +110,17 @@ class Maze():
                 else:
                     drawingTurtle.penup()
                 drawingTurtle.setpos(drawingTurtle.xcor(), drawingTurtle.ycor() - 1)
+        drawingTurtle.color("blue")
+        for x in range(0,len(self.pokes_locations)):
+            drawingTurtle.penup()
+            drawingTurtle.setposition(self.pokes_locations[x].x + 0.5, self.pokes_locations[x].y + 0.5)
+            drawingTurtle.pendown()
+            drawingTurtle.dot(10)
+        drawingTurtle.penup()
+        drawingTurtle.setposition(0,0)
         window.exitonclick()
+
+    def draw_pokes(self):
+        drawingTurtle = turtle.Turtle()
+        drawingTurtle.speed(0)
+

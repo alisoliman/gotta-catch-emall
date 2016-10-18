@@ -5,10 +5,10 @@ from objects import Operator
 from additional_packages.utils import is_in
 
 class SearchProblem():
-    def __init__(self, operators, initState, goalTest, pathCostFunction):
+    def __init__(self, operators, initState, goal, pathCostFunction):
         self.operators = operators
         self.initialState = initState
-        self.goalTest = goalTest
+        self.goal = goal
         self.pathCostFunction = pathCostFunction
 
     def operators(self, state):
