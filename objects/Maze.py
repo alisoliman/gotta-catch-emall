@@ -2,7 +2,7 @@ import random
 import turtle
 
 from Objects import Cell
-from searchTools import Location
+from objects import Location
 
 
 class Maze():
