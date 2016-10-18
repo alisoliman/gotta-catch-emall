@@ -25,5 +25,14 @@ class GeneralSearch():
         return None
 
 
+    def main(self):
+        pass
+
+
+
+
+
+
+
 
 
