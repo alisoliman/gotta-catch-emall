@@ -1,5 +1,5 @@
-from objects.Operator import Operator
-from objects.Orientation import Orientation
+from objects.Enums import Operator
+from objects.Enums import Orientation
 
 from objects import State
 from objects.Maze import Maze

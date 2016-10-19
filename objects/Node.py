@@ -7,3 +7,4 @@ class Node():
         if parent:
             self.depth = parent.depth + 1
         self.pathCost = pathCost
+
