@@ -75,8 +75,6 @@ class Maze():
             self.cells[loc.x][loc.y].hasPokemon = True
             self.pokes_locations.append(loc)
 
-
-
     def draw_maze(self):
         # Initialise Window with its attributes
         turtle.title("Pokemon Maze")
