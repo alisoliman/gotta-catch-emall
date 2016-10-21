@@ -28,6 +28,7 @@ class CatchEmProblem(SearchProblem):
         return available_operators
 
     def goal_test(self, state):
+        print "It checked the goal state"
         if(state.num_pokemons == self.maze.total_pokemons and state.time_left_to_hatch <= 0 and state.cell.location == self.maze.endLocation):
             return True
         else:
