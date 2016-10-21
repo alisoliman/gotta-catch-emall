@@ -19,13 +19,13 @@ class Node():
         for i in range(0, len(operators)):
             if operators[i] == Operator.forward:
                 new_loc = self.move_forward(node.state.cell.location, node.state.orientation)
-                new_orientation = State.orientation
+                new_orientation = node.state.orientation
                 new_cell = problem.maze.cells[new_loc.x][new_loc.y]
                 time_to_hatch = node.state.time_left_to_hatch -1 ;
-                num_pokes = problem.state.num_pokemons
+                num_pokes = node.state.num_pokemons
                 if new_cell.has_pokemon:
                     num_pokes += 1
-                new_state = State.State(new_cell, num_pokes, new_orientation, time_to_hatch)
+                new_state = State(new_cell, num_pokes, new_orientation, time_to_hatch)
                 new_node = Node.Node(new_state, node, operators[i], node.depth+1)
                 nodes.append(new_node)
             elif operators[i] == Operator.rotateLeft:

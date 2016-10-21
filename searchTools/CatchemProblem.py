@@ -14,7 +14,7 @@ class CatchEmProblem(SearchProblem):
         self.initialState = State.State(self.startCell, Orientation.north, 0, maze.time_to_hatch)
 
 
-    def operators(self, state):
+    def get_operators(self, state):
         available_operators = []
         if((state.orientation == Orientation.north and not state.cell.north ) or
                 (state.orientation == Orientation.east and state.cell.east == False) or
@@ -26,7 +26,7 @@ class CatchEmProblem(SearchProblem):
         return available_operators
 
     def goal_test(self, state):
-        if(state.num_pokemons == Maze.total_pokemons and state.time_left_to_hatch <= 0 and state.cell.location == Maze.endLocation):
+        if(state.num_pokemons == self.maze.total_pokemons and state.time_left_to_hatch <= 0 and state.cell.location == self.maze.endLocation):
             return True
         else:
             return False

@@ -1,6 +1,7 @@
 from objects import Node
 from objects.Enums import Search
-
+import Queue
+from Queue import *
 
 class GeneralSearch():
     def __init__(self, problem, quingFunction):
@@ -9,7 +10,7 @@ class GeneralSearch():
         self.visited_nodes = ()
 
     def breadth_first_search(self, nodes, node):
-        available_ops = self.problem.operators(node.state)
+        available_ops = self.problem.get_operators(node.state)
         expanded_nodes = node.apply_operator(self.problem, node, available_ops)
         for i in range(0, len(expanded_nodes)):
             if expanded_nodes[i] not in self.visited_nodes:
@@ -41,10 +42,12 @@ class GeneralSearch():
         pass
 
     def search(self):
-        nodes = Node(self.problem.initial)
+        nodes = Queue(maxsize=0)
+        initial_node = Node.Node(self.problem.initialState, 0, 0)
+        nodes.put(initial_node)
 
         while True:
-            if nodes.empty():
+            if nodes.empty:
                 return "Failure";
             node = nodes.get()
             if self.problem.goal_test(node.state):
