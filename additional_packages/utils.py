@@ -2,7 +2,6 @@
 
 import bisect
 import collections
-import collections.abc
 import functools
 import operator
 import os.path

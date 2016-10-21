@@ -1,9 +1,12 @@
-class Agent:
+from objects import Maze
+from searchTools.CatchemProblem import CatchEmProblem
+from searchTools.GeneralSearch import GeneralSearch
 
-    def __init__(self, initial_state=None):
-        self.state = initial_state
 
 
-    def main(self):
-        pass
-        
+
+maze = Maze.Maze(4,4)
+problem = CatchEmProblem(maze)
+search = GeneralSearch(problem)
+print (search)
+
