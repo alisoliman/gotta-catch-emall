@@ -19,6 +19,8 @@ class Maze():
         self.time_to_hatch = self.gen_hatch()
         self.gen_maze()
         self.gen_hatch()
+        print (self.startLocation.print_location())
+        print (self.endLocation.print_location())
 
     def define_initial_state(self):
 
