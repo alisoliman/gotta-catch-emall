@@ -16,7 +16,9 @@ class Maze():
         self.define_initial_state()
         self.startLocation = self.gen_random_location()
         self.endLocation = self.gen_random_location()
+        self.time_to_hatch = self.gen_hatch()
         self.gen_maze()
+        self.gen_hatch()
 
     def define_initial_state(self):
 
@@ -27,6 +29,9 @@ class Maze():
         for y in range(0, self.height + 2):
             self.visited[0][y] = True
             self.visited[self.width + 1][y] = True
+
+    def gen_hatch(self):
+        return random.randint(5, 40)
 
     def generate_maze(self, startX, startY):
         self.visited[startX][startY] = True

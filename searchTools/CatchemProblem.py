@@ -10,8 +10,8 @@ class CatchEmProblem(SearchProblem):
     def __init__(self, maze):
         self.maze = maze;
         self.operators = [Operator.forward, Operator.rotateLeft, Operator.rotateRight]
-        self.startCell = self.maze.cells[self.maze.startLocation.x, self.maze.startLocation.y]
-        self.initialState = State.State(self.startCell, Orientation.Orientation.forward, 0)
+        self.startCell = self.maze.cells[self.maze.startLocation.x][self.maze.startLocation.y]
+        self.initialState = State.State(self.startCell, Orientation.north, 0, )
 
 
     def operators(self, state):
