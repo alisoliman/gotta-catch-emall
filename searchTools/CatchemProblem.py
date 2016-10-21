@@ -22,14 +22,15 @@ class CatchEmProblem(SearchProblem):
                 (state.orientation == Orientation.south and state.cell.south == False) or
                 (state.orientation == Orientation.west and state.cell.west == False)):
                     available_operators.append(self.operators[0])
-        available_operators.append(self.operators[1:2])
+        available_operators.append(self.operators[1])
+        available_operators.append(self.operators[2])
         print("available_operators")
         print(available_operators)
         return available_operators
 
     def goal_test(self, state):
         print "It checked the goal state"
-        if(state.num_pokemons == self.maze.total_pokemons and state.time_left_to_hatch <= 0 and state.cell.location == self.maze.endLocation):
+        if(state.num_pokemons >= self.maze.total_pokemons and state.time_left_to_hatch <= 0 and state.cell.location == self.maze.endLocation):
             return True
         else:
             return False

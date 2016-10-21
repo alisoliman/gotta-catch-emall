@@ -31,17 +31,17 @@ class Node():
                 nodes.append(new_node)
             elif operators[i] == Operator.rotateLeft:
                 print "Operator rotate left detected"
-                new_orientation = self.rotateLeft(State.orientation)
+                new_orientation = self.rotateLeft(node.state.orientation)
                 time_to_hatch = node.state.time_left_to_hatch - 1;
-                new_state = State.State(node.state.cell, new_orientation, problem.state.num_pokemons, time_to_hatch)
-                new_node = Node.Node(new_state, node, operators[i], node.depth+1)
+                new_state = State(node.state.cell, new_orientation, node.state.num_pokemons, time_to_hatch)
+                new_node = Node(new_state, node, operators[i], node.depth+1)
                 nodes.append(new_node)
             elif operators[i] == Operator.rotateRight:
                 print "Operator rotate right detected"
-                new_orientation = self.rotateRight(State.orientation)
+                new_orientation = self.rotateRight(node.state.orientation)
                 time_to_hatch = node.state.time_left_to_hatch - 1;
-                new_state = State.State(node.state.cell, new_orientation, problem.state.num_pokemons, time_to_hatch)
-                new_node = Node.Node(new_state, node, operators[i], node.depth + 1)
+                new_state = State(node.state.cell, new_orientation, node.state.num_pokemons, time_to_hatch)
+                new_node = Node(new_state, node, operators[i], node.depth + 1)
                 nodes.append(new_node)
         return nodes
 
@@ -59,7 +59,7 @@ class Node():
         elif orientation == Orientation.north:
             return Location.Location(location.x, location.y + 1)
 
-    def rotateLeft(x):
+    def rotateLeft(self, x):
         return {
             Orientation.east: Orientation.north,
             Orientation.north: Orientation.west,
@@ -67,7 +67,7 @@ class Node():
             Orientation.south: Orientation.east
         }[x]
 
-    def rotateRight(x):
+    def rotateRight(self, x):
         return {
             Orientation.east: Orientation.south,
             Orientation.south: Orientation.west,

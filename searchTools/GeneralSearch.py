@@ -9,6 +9,7 @@ class GeneralSearch():
         self.problem = problem
         self.quingFunction = quingFunction
         self.visited_nodes = set()
+        self.nodes = Queue.Empty
 
     def breadth_first_search(self, nodes, node):
         available_ops = self.problem.get_operators(node.state)
@@ -17,6 +18,7 @@ class GeneralSearch():
         for i in range(0, len(expanded_nodes)):
             print "Looped to expand nodes ",i
             if expanded_nodes[i] not in self.visited_nodes:
+                print "dakhal y-add unvisited node"
                 self.visited_nodes.add(expanded_nodes[i])
                 nodes.put(expanded_nodes[i])
         return nodes
@@ -45,27 +47,27 @@ class GeneralSearch():
         pass
 
     def search(self):
-        nodes = Queue.Queue(maxsize=0)
+        self.nodes = Queue.Queue()
         initial_node = Node.Node(self.problem.initialState, 0, 0)
-        nodes.put(initial_node)
+        self.nodes.put(initial_node)
 
         while True:
             print ("once")
-            if nodes.empty():
-                return "Failure";
-            node = nodes.get()
+            if self.nodes.empty():
+                return "Failure"
+            node = self.nodes.get()
             print(node)
             print "It didn't Fail"
             if self.problem.goal_test(node.state):
                 return node
             print "Adjust queue method"
-            nodes = self.adjust_queue(nodes, node, self.quingFunction)
+            self.nodes = self.adjust_queue(self.nodes, node, self.quingFunction)
             print "back"
 
     def adjust_queue(self, nodes, node, quingFunction):
         if quingFunction == Search.BF:
             "Breadth first calling"
-            self.breadth_first_search(nodes, node)
+            self.breadth_first_search(self.nodes, node)
         elif quingFunction == Search.DF:
             self.depth_first_search()
         elif quingFunction == Search.ID:
