@@ -1,4 +1,4 @@
-from Objects import Maze
+from objects import Maze
 
 
 
