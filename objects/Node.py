@@ -1,3 +1,6 @@
+import Queue
+
+from additional_packages.utils import FIFOQueue
 from objects import Location
 from objects.Enums import Orientation, Operator
 from objects.State import State
@@ -15,7 +18,7 @@ class Node():
 
 
     def apply_operator(self, problem, node, operators):
-        nodes = []
+        nodes = FIFOQueue()
         for i in range(0, len(operators)):
             if operators[i] == Operator.forward:
                 print "Operator forward detected"
@@ -43,6 +46,7 @@ class Node():
                 new_state = State.State(node.state.cell, new_orientation, problem.state.num_pokemons, time_to_hatch)
                 new_node = Node.Node(new_state, node, operators[i], node.depth + 1)
                 nodes.append(new_node)
+        print nodes.__len__()
         return nodes
 
 
@@ -59,7 +63,7 @@ class Node():
         elif orientation == Orientation.north:
             return Location.Location(location.x, location.y + 1)
 
-    def rotateLeft(x):
+    def rotateLeft(self,x):
         return {
             Orientation.east: Orientation.north,
             Orientation.north: Orientation.west,
@@ -67,7 +71,7 @@ class Node():
             Orientation.south: Orientation.east
         }[x]
 
-    def rotateRight(x):
+    def rotateRight(self,x):
         return {
             Orientation.east: Orientation.south,
             Orientation.south: Orientation.west,
