@@ -11,6 +11,7 @@ class GeneralSearch():
 
     def breadth_first_search(self, nodes, node):
         available_ops = self.problem.get_operators(node.state)
+        print(available_ops[0])
         expanded_nodes = node.apply_operator(self.problem, node, available_ops)
         for i in range(0, len(expanded_nodes)):
             if expanded_nodes[i] not in self.visited_nodes:
@@ -50,6 +51,7 @@ class GeneralSearch():
             if nodes.empty:
                 return "Failure";
             node = nodes.get()
+            print(node)
             if self.problem.goal_test(node.state):
                 return node
             nodes = self.adjust_queue(nodes, node, self.quingFunction)

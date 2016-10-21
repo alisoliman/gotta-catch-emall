@@ -8,3 +8,5 @@ class Cell():
         self.location = location
         self.has_pokemon = False
 
+    def __str__(self):
+        return "location: {}, has_Pokemon: {}".format(self.location, self.has_pokemon)

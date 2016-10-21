@@ -12,6 +12,7 @@ class CatchEmProblem(SearchProblem):
         self.operators = [Operator.forward, Operator.rotateLeft, Operator.rotateRight]
         self.startCell = self.maze.cells[self.maze.startLocation.x][self.maze.startLocation.y]
         self.initialState = State.State(self.startCell, Orientation.north, 0, maze.time_to_hatch)
+        print(self.initialState)
 
 
     def get_operators(self, state):
@@ -22,7 +23,8 @@ class CatchEmProblem(SearchProblem):
                 (state.orientation == Orientation.west and state.cell.west == False)):
                     available_operators.append(self.operators[0])
         available_operators.append(self.operators[1:2])
-
+        print("available_operators")
+        print(available_operators)
         return available_operators
 
     def goal_test(self, state):

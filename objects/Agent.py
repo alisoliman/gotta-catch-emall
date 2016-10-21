@@ -10,5 +10,5 @@ maze = Maze.Maze(4,4)
 problem = CatchEmProblem(maze)
 search = GeneralSearch(problem, Search.BF)
 node = search.search()
-print (node)
+print (str(node))
 

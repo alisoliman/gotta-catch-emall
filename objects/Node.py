@@ -71,3 +71,6 @@ class Node():
             Orientation.west: Orientation.north,
             Orientation.north: Orientation.east
         }[x]
+
+    def __str__(self):
+        return "state: {} parent: {}, depth: {}".format(self.state, self.parent, self.depth)
