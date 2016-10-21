@@ -1,45 +1,35 @@
-from additional_packages.utils import FIFOQueue
-from Objects import Node
-from Objects.Enums import Search
+from objects import Node
+from objects.Enums import Search
 
 
 class GeneralSearch():
     def __init__(self, problem, quingFunction):
         self.problem = problem
         self.quingFunction = quingFunction
+        self.visited_nodes = ()
 
     def breadth_first_search(self, nodes, node):
         available_ops = self.problem.operators(node.state)
-
-        for i in range(0, len(available_ops)):
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        if problem.goal_test(node.state):
-            return node
-        queue = FIFOQueue()
-        queue.append(node)
-        visited_nodes = set()
-        while queue:
-            node = queue.pop()
-            visited_nodes.add(node.state)
-            for child in node.expand(problem):
-                if child.state not in visited_nodes and child not in queue:
-                    if problem.goal_test(child.state):
-                        return child
-                    queue.append(child)
-        return None
+        expanded_nodes = node.apply_operator(self.problem, node, available_ops)
+        for i in range(0, len(expanded_nodes)):
+            if expanded_nodes[i] not in self.visited_nodes:
+                self.visited_nodes.add(expanded_nodes[i])
+                nodes.append(expanded_nodes[i])
+        return nodes
+        # if problem.goal_test(node.state):
+        #     return node
+        # queue = FIFOQueue()
+        # queue.append(node)
+        # visited_nodes = set()
+        # while queue:
+        #     node = queue.pop()
+        #     visited_nodes.add(node.state)
+        #     for child in node.expand(problem):
+        #         if child.state not in visited_nodes and child not in queue:
+        #             if problem.goal_test(child.state):
+        #                 return child
+        #             queue.append(child)
+        # return None
 
     def depth_first_search(self,problem):
         pass
@@ -52,6 +42,7 @@ class GeneralSearch():
 
     def search(self):
         nodes = Node(self.problem.initial)
+
         while True:
             if nodes.empty():
                 return "Failure";

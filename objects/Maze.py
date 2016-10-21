@@ -1,8 +1,8 @@
 import random
 import turtle
 
-from Objects import Cell
-from Objects import Location
+from objects import Cell
+from objects import Location
 
 
 class Maze():
@@ -62,8 +62,9 @@ class Maze():
         self.generate_maze(self.startLocation.x, self.startLocation.y)
         self.gen_pokes(random.randint(1, self.width/2))
         self.total_pokemons = len(self.pokes_locations)
-        self.draw_pokes()
-        self.draw_maze()
+        # self.draw_pokes()
+        # self.draw_maze()
+        print(self.startLocation)
 
     def gen_random_location(self):
         loc = Location.Location(random.randint(1, self.width-1), random.randint(1, self.height-1))
