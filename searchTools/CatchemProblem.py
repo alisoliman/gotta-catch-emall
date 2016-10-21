@@ -11,7 +11,7 @@ class CatchEmProblem(SearchProblem):
         self.maze = maze;
         self.operators = [Operator.forward, Operator.rotateLeft, Operator.rotateRight]
         self.startCell = self.maze.cells[self.maze.startLocation.x][self.maze.startLocation.y]
-        self.initialState = State.State(self.startCell, Orientation.north, 0, )
+        self.initialState = State.State(self.startCell, Orientation.north, 0, maze.time_to_hatch)
 
 
     def operators(self, state):

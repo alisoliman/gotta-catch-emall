@@ -35,6 +35,7 @@ class Maze():
 
     def generate_maze(self, startX, startY):
         self.visited[startX][startY] = True
+        self.cells[startX][startY].location = Location.Location(startX,startY)
         while (not self.visited[startX][startY + 1]) or (not self.visited[startX + 1][startY]) or (
                 not self.visited[startX][startY - 1]) or (not self.visited[startX - 1][startY]):
             while (True):
