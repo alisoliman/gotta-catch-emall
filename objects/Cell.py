@@ -6,5 +6,5 @@ class Cell():
         self.east = True
         self.west = True
         self.location = location
-        self.hasPokemon = False
+        self.has_pokemon = False
 

@@ -72,7 +72,7 @@ class Maze():
     def gen_pokes(self, number_of_pokes):
         for i in range(0, number_of_pokes):
             loc = self.gen_random_location()
-            self.cells[loc.x][loc.y].hasPokemon = True
+            self.cells[loc.x][loc.y].has_pokemon = True
             self.pokes_locations.append(loc)
 
     def draw_maze(self):

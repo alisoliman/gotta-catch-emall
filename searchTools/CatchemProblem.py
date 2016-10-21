@@ -7,31 +7,21 @@ from searchTools.SearchProblem import SearchProblem
 
 
 class CatchEmProblem(SearchProblem):
-    def __init__(self):
+    def __init__(self, maze):
+        self.maze = maze;
         self.operators = [Operator.forward, Operator.rotateLeft, Operator.rotateRight]
-        self.startCell = Maze.cells[Maze.startLocation.x, Maze.startLocation.y]
+        self.startCell = self.maze.cells[self.maze.startLocation.x, self.maze.startLocation.y]
         self.initialState = State.State(self.startCell, Orientation.Orientation.forward, 0)
 
 
     def operators(self, state):
         available_operators = []
-        if((state.orientation == Orientation.north and state.cell.north == False) or
+        if((state.orientation == Orientation.north and not state.cell.north ) or
                 (state.orientation == Orientation.east and state.cell.east == False) or
                 (state.orientation == Orientation.south and state.cell.south == False) or
                 (state.orientation == Orientation.west and state.cell.west == False)):
                     available_operators.append(self.operators[0])
-
-        if ((state.orientation == Orientation.north and state.cell.west == False) or
-                (state.orientation == Orientation.west and state.cell.south == False) or
-                (state.orientation == Orientation.south and state.cell.east== False) or
-                (state.orientation == Orientation.east and state.cell.north == False)):
-                    available_operators.append(self.operators[1])
-
-        if((state.orientation == Orientation.north and state.cell.east == False) or
-               (state.orientation == Orientation.east and state.cell.south == False) or
-               (state.orientation == Orientation.south and state.cell.west == False) or
-               (state.orientation == Orientation.west and state.cell.north == False)):
-            available_operators.append(self.operators[2])
+        available_operators.append(self.operators[1:2])
 
         return available_operators
 

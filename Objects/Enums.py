@@ -8,10 +8,10 @@ class Operator(Enum):
 
 
 class Orientation(Enum):
-    west = 1
+    north = 1
     east = 2
-    north = 3
-    south = 4
+    south = 3
+    west = 4
 
 
 class Search():

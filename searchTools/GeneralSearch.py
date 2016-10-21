@@ -8,8 +8,24 @@ class GeneralSearch():
         self.problem = problem
         self.quingFunction = quingFunction
 
-    def breadth_first_search(self,problem):
-        node = Node(problem.initial)
+    def breadth_first_search(self, nodes, node):
+        available_ops = self.problem.operators(node.state)
+
+        for i in range(0, len(available_ops)):
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         if problem.goal_test(node.state):
             return node
         queue = FIFOQueue()
@@ -34,7 +50,7 @@ class GeneralSearch():
     def uniform_cost_search(self,problem):
         pass
 
-    def main(self):
+    def search(self):
         nodes = Node(self.problem.initial)
         while True:
             if nodes.empty():
@@ -42,11 +58,11 @@ class GeneralSearch():
             node = nodes.get()
             if self.problem.goal_test(node.state):
                 return node
-            nodes = self.adjust_queue(nodes,self.quingFunction)
+            nodes = self.adjust_queue(nodes, node, self.quingFunction)
 
-    def adjust_queue(self, nodes, quingFunction):
+    def adjust_queue(self, nodes, node, quingFunction):
         if quingFunction == Search.BF:
-            self.breadth_first_search()
+            self.breadth_first_search(nodes, node)
         elif quingFunction == Search.DF:
             self.depth_first_search()
         elif quingFunction == Search.ID:
