@@ -16,33 +16,63 @@ class Node():
 
     def apply_operator(self, problem, node, operators):
         nodes = []
+        first_state = problem.initialState
+        new_state = State(problem.initialState.cell, Orientation.north, 0, problem.initialState.time_left_to_hatch)
+
         for i in range(0, len(operators)):
             if operators[i] == Operator.forward:
                 print "Operator forward detected"
                 new_loc = self.move_forward(node.state.cell.location, node.state.orientation)
                 new_orientation = node.state.orientation
                 new_cell = problem.maze.cells[new_loc.x][new_loc.y]
-                time_to_hatch = node.state.time_left_to_hatch -1 ;
+                if node.state.time_left_to_hatch > 0:
+                    time_to_hatch = node.state.time_left_to_hatch -1 ;
+                else:
+                    time_to_hatch = 0
                 num_pokes = node.state.num_pokemons
                 if new_cell.has_pokemon:
                     num_pokes += 1
-                new_state = State(new_cell, num_pokes, new_orientation, time_to_hatch)
-                new_node = Node(new_state, node, operators[i], node.depth+1)
-                nodes.append(new_node)
+                    new_cell.has_pokemon = False
+                new_state = State(new_cell, new_orientation, num_pokes, time_to_hatch)
+                print "CHECK THIS OUT##########"
+                print problem.check_visited_states(new_state)
+                print len(problem.visited_states)
+                if problem.check_visited_states(new_state):
+                    continue
+                else:
+                    problem.visited_states.append(new_state)
+                    print "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+                    print len(problem.visited_states)
+                    new_node = Node(new_state, node, operators[i], node.depth+1, node.pathCost+2)
+                    nodes.append(new_node)
             elif operators[i] == Operator.rotateLeft:
                 print "Operator rotate left detected"
                 new_orientation = self.rotateLeft(node.state.orientation)
-                time_to_hatch = node.state.time_left_to_hatch - 1;
+                if node.state.time_left_to_hatch > 0:
+                    time_to_hatch = node.state.time_left_to_hatch - 1;
+                else:
+                    time_to_hatch = 0
                 new_state = State(node.state.cell, new_orientation, node.state.num_pokemons, time_to_hatch)
-                new_node = Node(new_state, node, operators[i], node.depth+1)
-                nodes.append(new_node)
+                if problem.check_visited_states(new_state):
+                    continue
+                else:
+                    problem.visited_states.append(new_state)
+                    new_node = Node(new_state, node, operators[i], node.depth+1, node.pathCost+1)
+                    nodes.append(new_node)
             elif operators[i] == Operator.rotateRight:
                 print "Operator rotate right detected"
                 new_orientation = self.rotateRight(node.state.orientation)
-                time_to_hatch = node.state.time_left_to_hatch - 1;
+                if node.state.time_left_to_hatch > 0:
+                    time_to_hatch = node.state.time_left_to_hatch - 1;
+                else:
+                    time_to_hatch = 0
                 new_state = State(node.state.cell, new_orientation, node.state.num_pokemons, time_to_hatch)
-                new_node = Node(new_state, node, operators[i], node.depth + 1)
-                nodes.append(new_node)
+                if problem.check_visited_states(new_state):
+                    continue
+                else:
+                    problem.visited_states.append(new_state)
+                    new_node = Node(new_state, node, operators[i], node.depth + 1, node.pathCost+1)
+                    nodes.append(new_node)
         return nodes
 
 
@@ -75,5 +105,19 @@ class Node():
             Orientation.north: Orientation.east
         }[x]
 
+
+
+
+    def check_visited_states2(self, first_state, new_state):
+        if (new_state.cell.location.x == first_state.cell.location.x and
+                        new_state.cell.location.y == first_state.cell.location.y and
+                        new_state.cell.has_pokemon == first_state.cell.has_pokemon and
+                        new_state.orientation == first_state.orientation and
+                        new_state.num_pokemons == first_state.num_pokemons and
+                        new_state.time_left_to_hatch == first_state.time_left_to_hatch):
+                        return True
+        else:
+            return False
+
     def __str__(self):
-        return "state: {} parent: {}, depth: {}".format(self.state, self.parent, self.depth)
+        return "state: {} , depth: {}".format(self.state, self.depth)

@@ -19,3 +19,5 @@ class Search():
     DF = 2
     ID = 3
     UC = 4
+    AS = 5
+    GR = 6

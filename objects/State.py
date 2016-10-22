@@ -6,4 +6,4 @@ class State():
         self.time_left_to_hatch = time_left_to_hatch
 
     def __str__(self):
-        return 'cell {} orientation {} pokemons {} time {}'.format(self.cell, self.orientation, str(self.num_pokemons), str(self.time_left_to_hatch))
+        return 'cell {} , {}, has {} pokemons, time: {}'.format(self.cell, self.orientation, str(self.num_pokemons), str(self.time_left_to_hatch))

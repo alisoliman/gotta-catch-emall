@@ -36,7 +36,7 @@ class Maze():
             self.visited[self.width + 1][y] = True
 
     def gen_hatch(self):
-        return random.randint(0, 1)
+        return random.randint(3, self.width*self.height/2)
 
     def generate_maze(self, startX, startY):
         self.visited[startX][startY] = True
