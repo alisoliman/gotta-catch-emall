@@ -19,6 +19,11 @@ class Maze():
         self.time_to_hatch = self.gen_hatch()
         self.gen_maze()
         self.gen_hatch()
+        print("start: ")
+        print(self.startLocation)
+        print("end: ")
+        print(self.endLocation)
+        print('total pokemons: ', str(self.total_pokemons))
 
     def define_initial_state(self):
 
@@ -31,7 +36,7 @@ class Maze():
             self.visited[self.width + 1][y] = True
 
     def gen_hatch(self):
-        return random.randint(5, 40)
+        return random.randint(3, self.width*self.height/2)
 
     def generate_maze(self, startX, startY):
         self.visited[startX][startY] = True
@@ -70,7 +75,6 @@ class Maze():
         self.total_pokemons = len(self.pokes_locations)
         # self.draw_pokes()
         # self.draw_maze()
-        print(self.startLocation)
 
     def gen_random_location(self):
         loc = Location.Location(random.randint(1, self.width-1), random.randint(1, self.height-1))
@@ -125,7 +129,8 @@ class Maze():
             drawingTurtle.dot(10)
         drawingTurtle.penup()
         drawingTurtle.setposition(0,0)
-        window.exitonclick()
+        # window.exitonclick()
+        # turtle.done()
 
     def draw_pokes(self):
         drawingTurtle = turtle.Turtle()

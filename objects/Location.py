@@ -4,5 +4,5 @@ class Location():
         self.x = x
         self.y = y
 
-    def print_location(self):
-        return "x = ", self.x, "y: ", self.y
+    def __str__(self):
+        return "x: {}, y: {} ".format(self.x, self.y)
