@@ -1,8 +1,6 @@
+from objects import State
 from objects.Enums import Operator
 from objects.Enums import Orientation
-
-from objects import State
-from objects.Maze import Maze
 from searchTools.SearchProblem import SearchProblem
 
 

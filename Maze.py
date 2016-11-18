@@ -7,8 +7,8 @@ from objects import Location
 
 class Maze():
     def __init__(self, width, height):
-        self.height = height
-        self.width = width
+        self.height = 2
+        self.width = 2
         self.cells = [[Cell.Cell() for _ in range(height + 2)] for _ in range(width + 2)]
         self.visited = [[False for _ in range(height + 2)] for _ in range(width + 2)]
         self.pokes_locations = []
@@ -36,7 +36,7 @@ class Maze():
             self.visited[self.width + 1][y] = True
 
     def gen_hatch(self):
-        return random.randint(3, self.width*self.height/2)
+        return random.randint(2, self.width*self.height/2)
 
     def generate_maze(self, startX, startY):
         self.visited[startX][startY] = True
@@ -73,11 +73,58 @@ class Maze():
         self.generate_maze(self.startLocation.x, self.startLocation.y)
         self.gen_pokes(random.randint(1, self.width/2))
         self.total_pokemons = len(self.pokes_locations)
+        self.print_maze()
         # self.draw_pokes()
         # self.draw_maze()
 
+    def print_maze(self):
+
+        f = open('//Users/zamzamy/Desktop/KB1.pl', 'w')
+        f.write("width(%s).\n" % (self.width))
+        f.write("height(%s).\n" % (self.height))
+        f.write("number_of_pokemons(%s).\n" % (self.total_pokemons))
+        f.write("poke_nums(%s).\n" % (self.total_pokemons))
+        f.write("egg_time(%s).\n" % (self.time_to_hatch))
+        f.write("start_x(%s).\n" % (self.startLocation.x))
+        f.write("start_y(%s).\n" % (self.startLocation.y))
+        f.write("end_x(%s).\n" % (self.endLocation.x))
+        f.write("end_y(%s).\n" % (self.endLocation.y))
+
+
+        for x in range(0, self.width):
+            for y in range(0, self.height):
+                if (self.cells[x][y].has_pokemon == True):
+                    f.write("has_pokemon(%s, %s).\n" % (x + 1, y + 1))
+
+                if (self.cells[x][y].north == True):
+                    f.write("wall(%s, %s, %s, %s).\n" % (x + 1, y + 1, x + 1, y + 1))
+                    f.write("wall(%s, %s, %s, %s).\n" % (x + 1, y + 2, x + 1, y + 1))
+
+                if (self.cells[x][y].south == True):
+                    f.write("wall(%s, %s, %s, %s).\n" % (x + 1, y + 1, x + 1, y))
+                    f.write("wall(%s, %s, %s, %s).\n" % (x + 1, y, x + 1, y + 1))
+
+                if (self.cells[x][y].east == True):
+                    f.write("wall(%s, %s, %s, %s).\n" % (x + 1, y + 1, x + 2, y + 1))
+                    f.write("wall(%s, %s, %s, %s).\n" % (x + 2, y + 1, x + 1, y + 1))
+
+                if (self.cells[x][y].west == True):
+                    f.write("wall(%s, %s, %s, %s).\n" % (x + 1, y + 1, x, y + 1))
+                    f.write("wall(%s, %s, %s, %s).\n" % (x, y + 1, x + 1, y + 1))
+
+        f.write("stance(%s, %s, %s, [" % ( self.startLocation.x, self.startLocation.y, self.total_pokemons))
+        poke_counter = 0
+        for x in range(0, self.width):
+            for y in range(0, self.height):
+                if(self.cells[x][y].has_pokemon == True):
+                    poke_counter = poke_counter + 1
+                    f.write("(%s, %s)" % (x, y))
+                    if(poke_counter != self.total_pokemons):
+                        f.write(", ")
+        f.write("], %s, s0).\n" % (self.time_to_hatch))
+
     def gen_random_location(self):
-        loc = Location.Location(random.randint(1, self.width-1), random.randint(1, self.height-1))
+        loc = Location.Location(random.randint(1, self.width), random.randint(1, self.height))
         return loc
 
     def gen_pokes(self, number_of_pokes):
