@@ -6,7 +6,7 @@ from searchTools.GeneralSearch import GeneralSearch
 
 
 
-maze = Maze.Maze(2, 2)
+maze = Maze.Maze(3, 3)
 problem = CatchEmProblem(maze)
 search = GeneralSearch(problem, Search.BF, 3)
 node = search.search()
