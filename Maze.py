@@ -7,8 +7,8 @@ from objects import Location
 
 class Maze():
     def __init__(self, width, height):
-        self.height = 2
-        self.width = 2
+        self.height = height
+        self.width = width
         self.cells = [[Cell.Cell() for _ in range(height + 2)] for _ in range(width + 2)]
         self.visited = [[False for _ in range(height + 2)] for _ in range(width + 2)]
         self.pokes_locations = []
@@ -85,46 +85,47 @@ class Maze():
         f.write("number_of_pokemons(%s).\n" % (self.total_pokemons))
         f.write("poke_nums(%s).\n" % (self.total_pokemons))
         f.write("egg_time(%s).\n" % (self.time_to_hatch))
-        f.write("start_x(%s).\n" % (self.startLocation.x))
-        f.write("start_y(%s).\n" % (self.startLocation.y))
-        f.write("end_x(%s).\n" % (self.endLocation.x))
-        f.write("end_y(%s).\n" % (self.endLocation.y))
+        f.write("start_x(%s).\n" % (self.startLocation.x+1))
+        f.write("start_y(%s).\n" % (self.startLocation.y+1))
+        f.write("end_x(%s).\n" % (self.endLocation.x+1))
+        f.write("end_y(%s).\n" % (self.endLocation.y+1))
 
 
         for x in range(0, self.width):
             for y in range(0, self.height):
+                x2 = x + 1
+                y2 = y + 1
                 if (self.cells[x][y].has_pokemon == True):
-                    f.write("has_pokemon(%s, %s).\n" % (x + 1, y + 1))
-
+                    f.write("has_pokemon(%s, %s).\n" % (x2, y2))
                 if (self.cells[x][y].north == True):
-                    f.write("wall(%s, %s, %s, %s).\n" % (x + 1, y + 1, x + 1, y + 1))
-                    f.write("wall(%s, %s, %s, %s).\n" % (x + 1, y + 2, x + 1, y + 1))
+                    f.write("wall(%s, %s, %s, %s).\n" % (x2, y2 , x2 , y2 +1))
+                    f.write("wall(%s, %s, %s, %s).\n" % (x2 , y2 +1, x2 , y2 ))
 
                 if (self.cells[x][y].south == True):
-                    f.write("wall(%s, %s, %s, %s).\n" % (x + 1, y + 1, x + 1, y))
-                    f.write("wall(%s, %s, %s, %s).\n" % (x + 1, y, x + 1, y + 1))
+                    f.write("wall(%s, %s, %s, %s).\n" % (x2, y2, x2, y2-1))
+                    f.write("wall(%s, %s, %s, %s).\n" % (x2 , y2 -1, x2, y2))
 
                 if (self.cells[x][y].east == True):
-                    f.write("wall(%s, %s, %s, %s).\n" % (x + 1, y + 1, x + 2, y + 1))
-                    f.write("wall(%s, %s, %s, %s).\n" % (x + 2, y + 1, x + 1, y + 1))
+                    f.write("wall(%s, %s, %s, %s).\n" % (x2 , y2 , x2 +1, y2 ))
+                    f.write("wall(%s, %s, %s, %s).\n" % (x2 +1, y2 , x2, y2 ))
 
                 if (self.cells[x][y].west == True):
-                    f.write("wall(%s, %s, %s, %s).\n" % (x + 1, y + 1, x, y + 1))
-                    f.write("wall(%s, %s, %s, %s).\n" % (x, y + 1, x + 1, y + 1))
+                    f.write("wall(%s, %s, %s, %s).\n" % (x2 , y2 , x2 -1, y2 ))
+                    f.write("wall(%s, %s, %s, %s).\n" % (x2-1, y2, x2 , y2 ))
 
-        f.write("stance(%s, %s, %s, [" % ( self.startLocation.x, self.startLocation.y, self.total_pokemons))
+        f.write("stance(%s, %s, [" % ( self.startLocation.x + 1, self.startLocation.y + 1))
         poke_counter = 0
-        for x in range(0, self.width):
-            for y in range(0, self.height):
-                if(self.cells[x][y].has_pokemon == True):
+        for x2 in range(0, self.width):
+            for y2 in range(0, self.height):
+                if(self.cells[x2][y2].has_pokemon == True):
                     poke_counter = poke_counter + 1
-                    f.write("(%s, %s)" % (x, y))
-                    if(poke_counter != self.total_pokemons):
+                    f.write("(%s, %s)" % (x2+1, y2+1))
+                    if(poke_counter < self.total_pokemons):
                         f.write(", ")
-        f.write("], %s, s0).\n" % (self.time_to_hatch))
+        f.write("], 0, s0).\n")
 
     def gen_random_location(self):
-        loc = Location.Location(random.randint(1, self.width), random.randint(1, self.height))
+        loc = Location.Location(random.randint(0, self.width), random.randint(0, self.height))
         return loc
 
     def gen_pokes(self, number_of_pokes):
